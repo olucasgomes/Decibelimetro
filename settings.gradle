@@ -12,5 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "DecibelimetroJavaClone"
+
+rootProject.name = "SoundAlert NR-15"
 include ':app'
