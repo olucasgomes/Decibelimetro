@@ -4,7 +4,7 @@
             "outputFile": "com.pedroyuri.decibelimetro.app-mergeDebugResources-29:/values-w360dp-port-v13/values-w360dp-port-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Pedro\\.gradle\\caches\\9.0-milestone-1\\transforms\\cc34993e1c0478fc065755b0118e2c51\\transformed\\material-1.12.0\\res\\values-w360dp-port-v13\\values-w360dp-port-v13.xml",
+                    "source": "/Users/gomes/.gradle/caches/9.0-milestone-1/transforms/cc34993e1c0478fc065755b0118e2c51/transformed/material-1.12.0/res/values-w360dp-port-v13/values-w360dp-port-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

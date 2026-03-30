@@ -4,7 +4,7 @@
             "outputFile": "com.pedroyuri.decibelimetro.app-mergeDebugResources-29:/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Pedro\\.gradle\\caches\\9.0-milestone-1\\transforms\\3ac7fcd4a6ad8f1c7d52ae9860e9a148\\transformed\\appcompat-1.7.0\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "source": "/Users/gomes/.gradle/caches/9.0-milestone-1/transforms/3ac7fcd4a6ad8f1c7d52ae9860e9a148/transformed/appcompat-1.7.0/res/values-watch-v20/values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",
