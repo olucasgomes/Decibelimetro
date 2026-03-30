@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Decibelímetro</string>
+    <string name="app_name">SoundLimit</string>
+    <string name="high_noise_title">Alerta de Exposição Prolongada</string>
+    <string name="high_noise_description">Você está exposto a um nível de ruído superior a 85 dB há mais de 30 segundos. Segundo a norma NR-15, a permanência contínua neste ambiente sem proteção auricular pode causar danos permanentes à sua audição.</string>
+    <string name="btn_got_it">Entendi</string>
+    <string name="content_description_warning">Aviso de Risco</string>
 </resources>

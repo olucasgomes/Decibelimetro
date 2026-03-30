@@ -16,12 +16,27 @@ import com.pedroyuri.decibelimetro.audio.AudioMeterManager;
 import com.pedroyuri.decibelimetro.databinding.ActivityMainBinding;
 import com.pedroyuri.decibelimetro.utils.NoiseUtils;
 
+/**
+ * Main Activity of the Decibelimetro application.
+ * Manages the UI, sensor permissions, and coordinates the audio measurement process.
+ * Complies with Unifor project requirements for native sensor usage and Material Design. o
+ */
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_AUDIO = 1001;
+    private static final long EXPOSURE_THRESHOLD_MS = 30000; // 30 seconds of persistent noise
+    
     private ActivityMainBinding binding;
     private final AudioMeterManager meter = new AudioMeterManager();
     private final Handler handler = new Handler(Looper.getMainLooper());
+    
+    private boolean alertShown = false;
+    private long highNoiseStartTime = 0;
+    private boolean isUserActiveStart = false;
 
+    /**
+     * Periodic task that updates the UI with the latest decibel level from the sensor.
+     * Implements thresholds for visual feedback and safety alerts with persistence check.
+     */
     private final Runnable meterTask = new Runnable() {
         @Override
         public void run() {
@@ -32,27 +47,51 @@ public class MainActivity extends AppCompatActivity {
             binding.tvStatus.setText(NoiseUtils.getStatus(db));
             binding.tvDescription.setText(NoiseUtils.getDescription(db));
 
-            if (db < 20) {
-                binding.statusCard.setBackgroundResource(R.drawable.bg_status_green);
-                binding.tvStatus.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_bright));
-                binding.tvDbValue.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.green_bright));
-            } else if (db < 60) {
-                binding.statusCard.setBackgroundResource(R.drawable.bg_status_blue);
-                binding.tvStatus.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.blue_bright));
-                binding.tvDbValue.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.blue_bright));
-            } else if (db < 85) {
-                binding.statusCard.setBackgroundResource(R.drawable.bg_status_blue);
-                binding.tvStatus.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.orange));
-                binding.tvDbValue.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.orange));
-            } else {
-                binding.statusCard.setBackgroundResource(R.drawable.bg_status_red);
-                binding.tvStatus.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
-                binding.tvDbValue.setTextColor(ContextCompat.getColor(MainActivity.this, R.color.red));
+            // Logic to show alert only after 30 seconds of continuous exposure > 85 dB
+            if (db >= 85) {
+                if (highNoiseStartTime == 0) {
+                    highNoiseStartTime = System.currentTimeMillis();
+                }
+                
+                long elapsed = System.currentTimeMillis() - highNoiseStartTime;
+                
+                // Show alert only if exposure time is reached and not already shown
+                if (elapsed >= EXPOSURE_THRESHOLD_MS && !alertShown) {
+                    alertShown = true;
+                    new HighNoiseDialog().show(getSupportFragmentManager(), "noise_alert");
+                }
+            } else if (db < 80) {
+                // Reset timer and alert status if noise drops below safety margin
+                highNoiseStartTime = 0;
+                alertShown = false;
             }
+
+            // Visual UI updates based on noise level (Color feedback remains instant)
+            updateVisualFeedback(db);
 
             handler.postDelayed(this, 350);
         }
     };
+
+    private void updateVisualFeedback(int db) {
+        if (db < 20) {
+            binding.statusCard.setBackgroundResource(R.drawable.bg_status_green);
+            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.green_bright));
+            binding.tvDbValue.setTextColor(ContextCompat.getColor(this, R.color.green_bright));
+        } else if (db < 60) {
+            binding.statusCard.setBackgroundResource(R.drawable.bg_status_blue);
+            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.blue_bright));
+            binding.tvDbValue.setTextColor(ContextCompat.getColor(this, R.color.blue_bright));
+        } else if (db < 85) {
+            binding.statusCard.setBackgroundResource(R.drawable.bg_status_blue);
+            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.orange));
+            binding.tvDbValue.setTextColor(ContextCompat.getColor(this, R.color.orange));
+        } else {
+            binding.statusCard.setBackgroundResource(R.drawable.bg_status_red);
+            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.red));
+            binding.tvDbValue.setTextColor(ContextCompat.getColor(this, R.color.red));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +102,23 @@ public class MainActivity extends AppCompatActivity {
 
         binding.btnToggle.setOnClickListener(v -> {
             if (meter.isRunning()) {
+                isUserActiveStart = false;
                 stopMeter();
             } else {
+                isUserActiveStart = true;
                 ensurePermissionAndStart();
             }
         });
 
         binding.btnInfo.setOnClickListener(v -> new NR15Dialog().show(getSupportFragmentManager(), "nr15"));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (meter.isRunning()) {
+            stopMeter();
+        }
     }
 
     private void ensurePermissionAndStart() {
@@ -82,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startMeter() {
         try {
+            highNoiseStartTime = 0; // Reset timer on start
             meter.start(getCacheDir().getAbsolutePath());
             binding.btnToggle.setText("Parar Medição");
             handler.post(meterTask);
@@ -94,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         meter.stop();
         binding.btnToggle.setText("Iniciar Medição");
         handler.removeCallbacks(meterTask);
+        highNoiseStartTime = 0;
     }
 
     @Override
