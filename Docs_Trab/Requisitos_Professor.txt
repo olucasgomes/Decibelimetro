@@ -1,0 +1,32 @@
+PROPOSTA DE ATIVIDADE - N700 - Desenvolvimento para Plataformas Móveis
+ATIVIDADE PARCIAL
+Conhecimentos necessários para o desenvolvimento da Atividade: Fundamentos de Desenvolvimento Mobile Android (componentes,  ciclo de vida de activities/fragments e intents)
+Material Design e princípios de UX/UI para aplicações móveis. Uso de sensores nativos (GPS, acelerômetro, câmera, etc.). Acesso a recursos como permissões, armazenamento local e  notificações.
+Uso de ferramentas de prototipação como Figma ou Canva. Práticas de engenharia de software: levantamento de requisitos,  definição de MVP, testes básicos.
+Trabalho em equipe.
+Versionamento com Git/GitHub.
+Objetivo da proposta da Atividade:
+Desenvolver uma aplicação móvel Android funcional, utilizando Material Design e sensores nativos do dispositivo, com foco na resolução de um problema real. A atividade visa aplicar na prática os conhecimentos adquiridos, promovendo soluções tecnológicas com usabilidade, desempenho e relevância social.
+Descrição da atividade:
+Os grupos deverão identificar um desafio e propor uma solução digital móvel. O grupo deverá projetar, desenvolver e apresentar um aplicativo Android funcional, utilizando boas práticas de design, sensores do dispositivo e os conceitos de desenvolvimento nativo. Além do app, o grupo deverá elaborar um relatório técnico detalhado, abordando a definição do problema, os requisitos, a arquitetura, os recursos usados e a usabilidade da solução proposta.
+1
+PROPOSTA DE ATIVIDADE - N700 - Desenvolvimento para Plataformas Móveis
+Passo a passo para desenvolvimento da atividade:
+Formação dos grupos.
+Levantamento de problema: Realizar uma pesquisa breve para identificar um problema real.
+Definição da solução: Descrever o escopo da aplicação e suas funcionalidades principais. Levantar requisitos funcionais e não funcionais.
+Prototipação: Criar wireframes da interface com base em Material Design. Usar Figma, Canva ou ferramentas semelhantes.
+Desenvolvimento: Criar um aplicativo funcional que atenda à proposta. Utilizar ao menos um sensor do dispositivo Android (GPS, câmera, acelerômetro, etc.).
+Elaboração do relatório técnico: Incluir todos os elementos do projeto: problema, requisitos, arquitetura, prints da aplicação e código-fonte comentado.
+ Entrega: Submeter a aplicação para avaliação.
+Orientações para envio da atividade:
+O relatório técnico deve ser enviado em formato PDF.
+O nome completo e matrícula dos integrantes da equipe devem  constar na capa do arquivo.
+O envio deve ser realizado por todos os membros da equipe, para  fins de correção.
+O aluno deve submeter 1 único arquivo PDF por integrante. O APK do  app + código-fonte (ZIP e link GitHub) deve ser incluído como anexo.
+Critérios a serem avaliados:
+Identificação e análise do problema - 1,0 ponto
+ Relevância e originalidade da solução proposta - 1,0 ponto Qualidade técnica do aplicativo e uso de sensores - 1,0 ponto Aplicação de boas práticas de design e Material Design - 1,0 ponto Qualidade do relatório técnico e organização geral - 1,0 ponto
+Total de pontuação: 5,0 pts.
+Prazo para envio da atividade: 30/03/26
+2
